@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block content %}
+<div class="panel"><h2>Add Transaction</h2><form method="post" class="form">
+<label>Title<input name="title" required></label>
+<label>Amount<input type="number" name="amount" step="0.01" min="0.01" required></label>
+<label>Type<select name="kind"><option value="expense">Expense</option><option value="income">Income</option></select></label>
+<label>Category<input name="category" value="Other"></label>
+<label>Date<input type="date" name="transaction_date" value="{{ request.form.get('transaction_date', '') }}" required></label>
+<button>Save</button><a href="{{url_for('dashboard')}}">Cancel</a></form></div>{% endblock %}

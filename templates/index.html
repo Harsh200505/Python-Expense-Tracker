@@ -1,0 +1,19 @@
+{% extends "base.html" %}{% block content %}
+<section class="stats">
+<div><span>Income</span><b>₹{{ "%.2f"|format(income) }}</b></div>
+<div><span>Expenses</span><b>₹{{ "%.2f"|format(expense) }}</b></div>
+<div><span>Balance</span><b>₹{{ "%.2f"|format(balance) }}</b></div>
+</section>
+
+<div class="panel"><h2>Expense by Category</h2>
+{% for category, amount in categories.items() %}
+<div class="row"><span>{{ category }}</span><strong>₹{{ "%.2f"|format(amount) }}</strong></div>
+<div class="bar"><span style="width:{{ (amount / expense * 100) if expense else 0 }}%"></span></div>
+{% else %}<p>No expenses yet.</p>{% endfor %}</div>
+
+<div class="panel"><h2>Transactions</h2>
+<table><tr><th>Date</th><th>Title</th><th>Category</th><th>Type</th><th>Amount</th><th></th></tr>
+{% for x in transactions %}<tr><td>{{x.transaction_date}}</td><td>{{x.title}}</td><td>{{x.category}}</td>
+<td>{{x.kind}}</td><td>₹{{"%.2f"|format(x.amount)}}</td><td><form method="post" action="{{url_for('delete_transaction',item_id=x.id)}}"><button>Delete</button></form></td></tr>
+{% else %}<tr><td colspan="6">No transactions.</td></tr>{% endfor %}</table></div>
+{% endblock %}
